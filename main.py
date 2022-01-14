@@ -28,12 +28,12 @@ if present_tuple in info_tuples:
     with smtplib.SMTP("smtp.gmail.com") as connection:
         connection.starttls()
         # assign the user-email and user-password to variables
-        user_email = "# type your email id"
-        user_password = "# type your password"
+        user_email = "< enter user email>"
+        user_password = "< enter user password>"
         connection.login(user= user_email, password= user_password)
         # In this case from and to address is the same as the email must be sent to user itself
         # In case of msg the message will be modified mail contents
         connection.sendmail(
             from_addr= user_email, 
             to_addrs= user_email, 
-            msg= mail_contents)
+            msg= f"Subject: Task Alert\n\n {mail_contents}")
