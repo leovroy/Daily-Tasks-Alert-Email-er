@@ -1,5 +1,6 @@
 import datetime as dt
 import pandas as pd
+import smtplib
 
 # create a variable containing present datetime
 present_datetime = dt.datetime.now()
@@ -22,3 +23,17 @@ if present_tuple in info_tuples:
     with open("mail.txt") as mail_file:
         mail_contents = mail_file.read()
         mail_contents = mail_contents.replace("[TASKS]", task_info["tasks"])
+
+    # create a connection to send the modifies mail.txt  contents as email
+    with smtplib.SMTP("smtp.gmail.com") as connection:
+        connection.starttls()
+        # assign the user-email and user-password to variables
+        user_email = "# type your email id"
+        user_password = "# type your password"
+        connection.login(user= user_email, password= user_password)
+        # In this case from and to address is the same as the email must be sent to user itself
+        # In case of msg the message will be modified mail contents
+        connection.sendmail(
+            from_addr= user_email, 
+            to_addrs= user_email, 
+            msg= mail_contents)
